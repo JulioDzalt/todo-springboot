@@ -15,7 +15,7 @@ public class TodoModel {
     private int id;
     private String title;
     private String content;
-    private Date dateCreation;
+    private String dateCreation;
     private TodoStatusE status;
     private ArrayList<TodoCategoriesE> categorias;
 

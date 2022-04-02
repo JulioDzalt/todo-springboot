@@ -1,7 +1,9 @@
 package com.example.todo_crud.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.example.todo_crud.models.TodoCategoriesE;
 import com.example.todo_crud.models.TodoModel;
@@ -24,7 +26,20 @@ public class TodoController {
         t.setId(1);
         t.setTitle("La de albert");
         t.setContent("hola mundo");
-        t.setDateCreation(new Date());
+        
+        // Input
+        Date date = new Date(System.currentTimeMillis());
+
+        // Conversion
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //sdf.setTimeZone(TimeZone.getTimeZone("CST"));
+        String text = sdf.format(date);
+        t.setDateCreation(text);
+
+
+
         t.setStatus(TodoStatusE.IN_PROGRESS);
         t.setCategorias(
             new ArrayList<TodoCategoriesE>() {
