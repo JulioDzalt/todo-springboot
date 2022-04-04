@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.example.todo_crud.models.TodoStatusE;
+
 public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, String> {
 
     private List<String> valueList;
@@ -30,6 +32,7 @@ public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, Str
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        System.out.println("Validando "+value);
         return valueList.contains(value);
     }
 

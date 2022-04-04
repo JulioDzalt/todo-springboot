@@ -33,8 +33,7 @@ public class TodoModel {
     @DateISOValidation(message = "The dateCreation is invalid.")
     private String dateCreation;
     
-    //@NotNull(message = "The status is required.")
-    //@EnumValidator(acceptedValues = { "Integer", "String" }, message = "Invalid dataType", groups = {})
+    @NotNull(message = "The status is required.")
     @EnumValidator(enumClazz = TodoStatusE.class , message = "Invalid dataType")
     private String status;
 
