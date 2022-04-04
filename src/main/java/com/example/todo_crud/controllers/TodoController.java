@@ -13,6 +13,7 @@ import com.example.todo_crud.models.TodoCategoriesE;
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TodoController {
+
+    @Autowired
+    TodoModel t;
     
     @GetMapping("/version")
     public String version() {
@@ -28,9 +32,9 @@ public class TodoController {
 
     @GetMapping("/todo")
     public TodoModel getTodobyId() {
-        TodoModel t = new TodoModel();
+        
         t.setId(1);
-        t.setTitle("La de albert");
+        //t.setTitle("La de albert");
         t.setContent("hola mundo");
         
         // Input
