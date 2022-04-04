@@ -23,16 +23,17 @@ public class ISO8016 implements ConstraintValidator<DateISOValidation, String> {
         // }
 
         // return false;
-        
-        System.out.println("Validating date");
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-        sdf.setLenient(false);
-        try {
-            sdf.parse(valueToValidate);
-            System.out.println("Valid ISO 8601");
-            return true;
-        } catch (ParseException e) {
-            System.out.println("Not valid ISO 8601");
+        if(valueToValidate != null){
+            System.out.println("Validating date");
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+            sdf.setLenient(false);
+            try {
+                sdf.parse(valueToValidate);
+                System.out.println("Valid ISO 8601");
+                return true;
+            } catch (ParseException e) {
+                System.out.println("Not valid ISO 8601");
+            }
         }
         return false;
     }
