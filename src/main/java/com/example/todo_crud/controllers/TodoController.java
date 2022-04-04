@@ -66,7 +66,7 @@ public class TodoController {
     @PostMapping("/todo")
     public TodoModel createTodo(@Valid @RequestBody TodoModel todo) {
         System.out.println(todo);
-        System.out.println(todo.getDateCreation());
+        //System.out.println(todo.getDateCreation());
 
         return todo;
     }
