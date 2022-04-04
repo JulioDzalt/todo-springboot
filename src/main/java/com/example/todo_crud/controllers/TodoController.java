@@ -12,10 +12,12 @@ import javax.validation.Valid;
 import com.example.todo_crud.models.TodoCategoriesE;
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
+import com.example.todo_crud.utils.TodoState;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,7 +52,7 @@ public class TodoController {
 
 
 
-        t.setStatus(TodoStatusE.IN_PROGRESS);
+        t.setStatus(TodoStatusE.IN_PROGRESS.toString());
         t.setCategorias(
             new ArrayList<TodoCategoriesE>() {
                 {
@@ -67,6 +69,30 @@ public class TodoController {
     public TodoModel createTodo(@Valid @RequestBody TodoModel todo) {
         System.out.println(todo);
         //System.out.println(todo.getDateCreation());
+
+        return todo;
+    }
+
+    @PutMapping("/todo")
+    public TodoModel createTodoPut(@Valid @RequestBody TodoModel todo) {
+        TodoModel todoA = new TodoModel();
+        TodoState todoState = new TodoState(todoA);
+        
+        // 1
+        todoA.setStatus("TO_DO");
+        todoState.change(TodoStatusE.CANCEL);
+        todoState.change(TodoStatusE.DONE);
+        todoState.change(TodoStatusE.IN_PROGRESS);
+        todoState.change(TodoStatusE.TO_DO);
+        
+        // 1
+        todoA.setStatus("TO_DO");
+        todoState.change(TodoStatusE.IN_PROGRESS);
+        todoState.change(TodoStatusE.DONE);
+        todoState.change(TodoStatusE.TO_DO);
+
+
+
 
         return todo;
     }
