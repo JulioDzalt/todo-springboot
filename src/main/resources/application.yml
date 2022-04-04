@@ -1,2 +1,13 @@
 julio:
     title: El titulo
+
+#todo:
+    #states:
+        #TO_DO: DONE, CANCEL
+
+
+todo:
+    states: '{
+        TO_DO: ''ju,li,ij'',
+        TO_DO2: ''ju,li,ij''
+    }'

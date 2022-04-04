@@ -13,6 +13,7 @@ import com.example.todo_crud.models.TodoCategoriesE;
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
 import com.example.todo_crud.utils.TodoState;
+import com.example.todo_crud.utils.TodoStateHash;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,9 @@ public class TodoController {
 
     @Autowired
     TodoModel t;
+
+    @Autowired
+    TodoStateHash todoState;
     
     @GetMapping("/version")
     public String version() {
@@ -76,7 +80,7 @@ public class TodoController {
     @PutMapping("/todo")
     public TodoModel createTodoPut(@Valid @RequestBody TodoModel todo) {
         TodoModel todoA = new TodoModel();
-        TodoState todoState = new TodoState(todoA);
+        todoState.setTodoModel(todoA);
         
         // 1
         todoA.setStatus("TO_DO");
