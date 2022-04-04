@@ -13,7 +13,7 @@ import com.example.todo_crud.models.TodoCategoriesE;
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
 import com.example.todo_crud.utils.TodoState;
-import com.example.todo_crud.utils.TodoStateHash;
+import com.example.todo_crud.utils.TodoStatesConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +29,14 @@ public class TodoController {
     TodoModel t;
 
     @Autowired
-    TodoStateHash todoState;
+    TodoState todoState;
+
+    @Autowired
+    public TodoStatesConfig todoStatesConfig;
     
     @GetMapping("/version")
     public String version() {
+        System.out.println(todoStatesConfig);
         return "1.1";
     }
 
@@ -89,11 +93,25 @@ public class TodoController {
         todoState.change(TodoStatusE.IN_PROGRESS);
         todoState.change(TodoStatusE.TO_DO);
         
-        // 1
+        // 2
         todoA.setStatus("TO_DO");
         todoState.change(TodoStatusE.IN_PROGRESS);
         todoState.change(TodoStatusE.DONE);
         todoState.change(TodoStatusE.TO_DO);
+
+
+        // 1B
+        todoA.setStatus("TO_DO");
+        todoState.changeSimple(TodoStatusE.CANCEL);
+        todoState.changeSimple(TodoStatusE.DONE);
+        todoState.changeSimple(TodoStatusE.IN_PROGRESS);
+        todoState.changeSimple(TodoStatusE.TO_DO);
+
+        // 2B
+        todoA.setStatus("TO_DO");
+        todoState.changeSimple(TodoStatusE.IN_PROGRESS);
+        todoState.changeSimple(TodoStatusE.DONE);
+        todoState.changeSimple(TodoStatusE.TO_DO);
 
 
 

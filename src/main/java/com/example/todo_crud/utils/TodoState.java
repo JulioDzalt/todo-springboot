@@ -1,13 +1,27 @@
 package com.example.todo_crud.utils;
 
+import java.util.ArrayList;
+
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class TodoState extends State {
+
+    @Autowired
+    public TodoStatesConfig todoStatesConfig;
 
     public TodoState(TodoModel todo){
         super(todo);
     }
+
+    public void setTodoModel(TodoModel todo) {
+        this.todo = todo;
+    }
+
 
     @Override
     public boolean change(TodoStatusE newTodoState) {
@@ -69,4 +83,27 @@ public class TodoState extends State {
         return wasChanged;
     }
     
+
+    public boolean changeSimple(TodoStatusE newTodoState){
+
+        boolean wasChanged = false;
+        String previousState = todo.getStatus();
+        ArrayList<String> nextValidStatuses = todoStatesConfig.getStates().get(previousState);
+
+        if (nextValidStatuses != null) {
+            if(nextValidStatuses.contains(newTodoState.toString()))
+            wasChanged = true;
+        } else {
+            wasChanged = false;
+        }
+
+        if(wasChanged){
+            System.out.println(String.format("Todo  from %s have %s", previousState, todo.getStatus()));
+            
+        }else{
+            System.out.println(String.format("ERROR: from %s to %s is no valid", todo.getStatus(), newTodoState.toString()));
+        }
+        System.out.println(todo);
+        return wasChanged;
+    }
 }
