@@ -1,4 +1,4 @@
-package com.example.todo_crud.models;
+package com.example.todo_crud.validator;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;

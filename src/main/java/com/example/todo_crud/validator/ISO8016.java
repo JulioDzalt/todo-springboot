@@ -1,4 +1,4 @@
-package com.example.todo_crud.models;
+package com.example.todo_crud.validator;
 
 import java.text.DateFormat;
 import java.text.ParseException;
