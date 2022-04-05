@@ -54,10 +54,10 @@ public class TodoService {
 
         t.setStatus(TodoStatusE.IN_PROGRESS.toString());
         t.setCategorias(
-                new ArrayList<TodoCategoriesE>() {
+                new ArrayList<String>() {
                     {
-                        add(TodoCategoriesE.Home);
-                        add(TodoCategoriesE.PersonalBelongings);
+                        add(TodoCategoriesE.Home.toString());
+                        add(TodoCategoriesE.PersonalBelongings.toString());
                     }
                 });
 

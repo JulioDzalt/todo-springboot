@@ -2,10 +2,12 @@ package com.example.todo_crud.models;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.example.todo_crud.validator.DateISOValidation;
+import com.example.todo_crud.validator.EnumArrayValidator;
 import com.example.todo_crud.validator.EnumValidator;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +37,10 @@ public class TodoModel {
     private String dateCreation;
     
     @NotNull(message = "The status is required.")
-    @EnumValidator(enumClazz = TodoStatusE.class , message = "Invalid dataType")
+    @EnumValidator(enumClazz = TodoStatusE.class , message = "The status is invalid")
     private String status;
 
-    private ArrayList<TodoCategoriesE> categorias;
+    @EnumArrayValidator(enumClazz = TodoCategoriesE.class, message = "The categorias is invalid")
+    private ArrayList<String> categorias;
 
 }
