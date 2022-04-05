@@ -15,9 +15,5 @@ public class TodoStatesConfig {
     public String defaultState;
     public ArrayList<String> states;
     public HashMap<String, ArrayList<String>> validChanges;
-
-    public TodoStatesConfig(HashMap<String, ArrayList<String>> states){
-        this.validChanges = validChanges;
-    }
     
 }
