@@ -12,10 +12,12 @@ import lombok.Data;
 public class TodoStatesConfig {
 
     
-    public HashMap<String, ArrayList<String>> states;
+    public String defaultState;
+    public ArrayList<String> states;
+    public HashMap<String, ArrayList<String>> validChanges;
 
     public TodoStatesConfig(HashMap<String, ArrayList<String>> states){
-        this.states = states;
+        this.validChanges = validChanges;
     }
     
 }
