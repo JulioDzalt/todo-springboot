@@ -7,7 +7,7 @@ import javax.persistence.Converter;
 
 import com.example.todo_crud.models.TodoStatusE;
 
-@Converter(autoApply = false)
+@Converter(autoApply = true)
 public class TodoStatusConverter implements AttributeConverter<TodoStatusE, String> {
 
     @Override

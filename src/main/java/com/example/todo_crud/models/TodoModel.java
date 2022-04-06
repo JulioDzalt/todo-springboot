@@ -53,7 +53,7 @@ public class TodoModel {
     
     @NotBlank(message = "The status is required.")
     @EnumValidator(enumClazz = TodoStatusE.class, message = "The status is invalid")
-    @Convert(converter = TodoStatusConverter.class)
+    //@Convert(converter = TodoStatusConverter.class)
     //@Column(columnDefinition = "ENUM('DONE', 'IN_PROGRESS', 'TO_DO', 'CANCEL')")
     //@Enumerated(EnumType.STRING)
     private String status;
