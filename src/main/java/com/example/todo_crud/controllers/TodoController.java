@@ -1,6 +1,7 @@
 package com.example.todo_crud.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.services.TodoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,11 @@ public class TodoController {
         return todoService.getConfig();
     }
 
+    @GetMapping("/todo/")
+    public List<TodoModel> getTodos() {
+        return todoService.getTodos();
+    }
+
     @GetMapping("/todo/{id}")
     public TodoModel getTodobyId(@Valid @PathVariable int id) {
        return todoService.getTodobyId(id);
@@ -34,8 +41,7 @@ public class TodoController {
     @PostMapping("/todo")
     public TodoModel createTodo(@Valid @RequestBody TodoModel todo) {
         System.out.println(todo);
-        //System.out.println(todo.getDateCreation());
-        return todo;
+        return todoService.insertTodo(todo);
     }
 
     @PutMapping("/todo")
@@ -43,7 +49,7 @@ public class TodoController {
         return todoService.updateTodo(todo);
     }
 
-    @PutMapping("/todo/{id}")
+    @DeleteMapping("/todo/{id}")
     public boolean deleteTodo(@Valid @PathVariable int id) {
         return todoService.deleteTodoById(id);
     }
