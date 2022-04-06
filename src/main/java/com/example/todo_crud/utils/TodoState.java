@@ -14,9 +14,7 @@ public class TodoState extends State {
     @Autowired
     public TodoStatesConfig todoStatesConfig;
 
-    public TodoState(TodoModel todo){
-        super(todo);
-    }
+    public TodoState(){}
 
     public void setTodoModel(TodoModel todo) {
         this.todo = todo;
@@ -26,13 +24,13 @@ public class TodoState extends State {
     @Override
     public boolean change(TodoStatusE newTodoState) {
         boolean wasChanged = false;
-        String previousState = todo.getStatus();
+        TodoStatusE previousState = todo.getStatus();
         switch(newTodoState){
             case TO_DO :
                 if (todo.getStatus().equals(TodoStatusE.TO_DO.toString()) ||
                     todo.getStatus().equals(TodoStatusE.IN_PROGRESS.toString())
                 ) {
-                    todo.setStatus(newTodoState.toString());
+                    todo.setStatus(newTodoState);
                     wasChanged = true;
                 }
             break;
@@ -43,7 +41,7 @@ public class TodoState extends State {
                     todo.getStatus().equals(TodoStatusE.IN_PROGRESS.toString()) ||
                     todo.getStatus().equals(TodoStatusE.DONE.toString())
                 ) {
-                    todo.setStatus(newTodoState.toString());
+                    todo.setStatus(newTodoState);
                     wasChanged = true;
                 }
             break;
@@ -52,7 +50,7 @@ public class TodoState extends State {
                 if (todo.getStatus().equals(TodoStatusE.IN_PROGRESS.toString()) ||
                     todo.getStatus().equals(TodoStatusE.DONE.toString())
                 ) {
-                    todo.setStatus(newTodoState.toString());
+                    todo.setStatus(newTodoState);
                     wasChanged = true;
                 }
             break;
@@ -62,7 +60,7 @@ public class TodoState extends State {
                     todo.getStatus().equals(TodoStatusE.IN_PROGRESS.toString()) ||
                     todo.getStatus().equals(TodoStatusE.CANCEL.toString())
                 ){
-                    todo.setStatus(newTodoState.toString());
+                    todo.setStatus(newTodoState);
                     wasChanged = true;
                 }else{
                     System.out.println("ALSAd");
@@ -87,8 +85,8 @@ public class TodoState extends State {
     public boolean changeSimple(TodoStatusE newTodoState){
 
         boolean wasChanged = false;
-        String previousState = todo.getStatus();
-        ArrayList<String> nextValidStatuses = todoStatesConfig.getValidChanges().get(previousState);
+        TodoStatusE previousState = todo.getStatus();
+        ArrayList<String> nextValidStatuses = todoStatesConfig.getValidChanges().get(previousState.toString());
 
         if (nextValidStatuses != null) {
             if(nextValidStatuses.contains(newTodoState.toString()))

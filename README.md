@@ -16,4 +16,49 @@ mvn spring-boot:run
 
 
 
+# Docker compose
+docker-compose up -d --service-ports
 
+## MS
+docker-compose run --service-ports todo_crud
+mvn spring-boot:run
+
+
+## DB
+docker-compose run --service-ports bd_todos
+/etc/init.d/mysql start
+mysql -u root -p
+root
+
+create database todos;
+
+use todos;
+
+drop table todos;
+
+CREATE TABLE IF NOT EXISTS todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    datecreation VARCHAR(255),
+    status enum('DONE', 'IN_PROGRESS', 'TO_DO', 'CANCEL')
+    
+);
+
+select * from todos;
+
+INSERT INTO todos (title, content, datecreation, status) VALUES  ("A","aaaaa","2008-7-04","TO_DO");
+INSERT INTO todos (title, content, datecreation, status) VALUES  ("b","bbbbb","2020-7-04","TO_DO");
+
+
+CREATE USER 'julio'@'localhost' IDENTIFIED BY 'julio';
+GRANT ALL PRIVILEGES ON * . * TO 'julio'@'localhost';
+GRANT ALL PRIVILEGES ON todos.* TO 'julio'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

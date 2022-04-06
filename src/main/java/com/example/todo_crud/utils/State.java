@@ -10,9 +10,7 @@ public abstract class State {
      * Context passes itself through the state constructor. This may help a
      * state to fetch some useful context data if needed.
      */
-    State(TodoModel todo) {
-        this.todo = todo;
-    }
+    State() {}
 
     public abstract boolean change(TodoStatusE newTodoState);
 }

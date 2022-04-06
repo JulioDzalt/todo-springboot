@@ -1,3 +1,21 @@
+spring:
+    jpa:
+        
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+        #generate-ddl: true
+    sql:
+        init:
+            platform: mysql
+    datasource:
+            url: jdbc:mysql://172.19.0.2:3306/todos #?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+            username: username
+            password: password
+            driver-class-name: com.mysql.cj.jdbc.Driver
 julio:
     title: El titulo
 
