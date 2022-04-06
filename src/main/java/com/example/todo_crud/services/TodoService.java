@@ -92,10 +92,14 @@ public class TodoService {
     
             //Valid changes
             todoState.setTodoModel(todoNew);
-    
+
+            TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
+            
             //Change if is posible
-            if(todoState.changeSimple(todo.getStatus())){
-                todoRepository.save(todo);
+            if(curretStatus != null){
+                if(todoState.changeSimple(curretStatus)){
+                    todoRepository.save(todo);
+                }
             }
 
         }
