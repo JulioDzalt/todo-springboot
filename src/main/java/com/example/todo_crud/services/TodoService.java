@@ -45,6 +45,15 @@ public class TodoService {
     }
 
     public TodoModel insertTodo(TodoModel todo) {
+        if(todo.getId() != 0 ){
+            if (todoRepository.existsById(todo.getId())){
+                System.out.println("Ya existe");
+                return todoRepository.save(todo);
+            }else{
+                System.out.println("No existe se crea");
+                
+            }
+        }
         return todoRepository.save(todo);
     }
     
