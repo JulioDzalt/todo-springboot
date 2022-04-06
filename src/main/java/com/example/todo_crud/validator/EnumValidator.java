@@ -11,6 +11,8 @@ import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.NotNull;
 
+import com.example.todo_crud.models.TodoStatusE;
+
 @Documented
 @Constraint(validatedBy = EnumValidatorImpl.class)
 @Retention(RetentionPolicy.RUNTIME)
@@ -21,7 +23,9 @@ public @interface EnumValidator {
 
     Class<? extends Enum<?>> enumClazz();
 
-    String message() default "Value is not valid";
+//    Enum [] enumValids() default {};
+
+    String message() default "must be any of enum {enumClazz}";
 
     Class<?>[] groups() default {};
 

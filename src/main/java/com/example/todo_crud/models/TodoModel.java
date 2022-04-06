@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.example.todo_crud.convertes.TodoStatusConverter;
 import com.example.todo_crud.validator.DateISOValidation;
 import com.example.todo_crud.validator.EnumArrayValidator;
 import com.example.todo_crud.validator.EnumValidator;
@@ -17,6 +18,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -48,11 +51,12 @@ public class TodoModel {
     @DateISOValidation(message = "The dateCreation is invalid.")
     private String dateCreation;
     
-    @NotNull(message = "The status is required.")
-    //@EnumValidator(enumClazz = TodoStatusE.class , message = "The status is invalid")
-    @Column(columnDefinition = "ENUM('DONE', 'IN_PROGRESS', 'TO_DO', 'CANCEL')")
-    @Enumerated(EnumType.STRING)
-    private TodoStatusE status;
+    @NotBlank(message = "The status is required.")
+    @EnumValidator(enumClazz = TodoStatusE.class, message = "The status is invalid")
+    @Convert(converter = TodoStatusConverter.class)
+    //@Column(columnDefinition = "ENUM('DONE', 'IN_PROGRESS', 'TO_DO', 'CANCEL')")
+    //@Enumerated(EnumType.STRING)
+    private String status;
 
     // @EnumArrayValidator(enumClazz = TodoCategoriesE.class, message = "The categorias is invalid")
     // private ArrayList<String> categorias;
