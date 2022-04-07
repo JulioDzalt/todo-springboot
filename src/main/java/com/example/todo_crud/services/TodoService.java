@@ -1,12 +1,8 @@
 package com.example.todo_crud.services;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.TimeZone;
 
 import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.models.TodoStatusE;
@@ -14,7 +10,6 @@ import com.example.todo_crud.repositories.TodoRepository;
 import com.example.todo_crud.utils.TodoState;
 import com.example.todo_crud.utils.TodoStatesConfig;
 import com.example.todo_crud.exception.ApiRequestException;
-import com.example.todo_crud.models.TodoCategoriesE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -11,8 +11,6 @@ import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.NotNull;
 
-import com.example.todo_crud.models.TodoStatusE;
-
 @Documented
 @Constraint(validatedBy = EnumValidatorImpl.class)
 @Retention(RetentionPolicy.RUNTIME)
