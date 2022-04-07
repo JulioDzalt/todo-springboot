@@ -41,16 +41,21 @@ public class TodoService {
     }
 
     public TodoModel insertTodo(TodoModel todo) {
-        if(todo.getId() != 0 ){
-            if (todoRepository.existsById(todo.getId())){
-                System.out.println("Ya existe");
-                throw new ApiRequestException("You must not define de id on the request", HttpStatus.BAD_REQUEST);
-                
-            }else{
-                System.out.println("No existe, se crea");
+        try{
+            if(todo.getId() != 0 ){
+                if (todoRepository.existsById(todo.getId())){
+                    System.out.println("Ya existe");
+                    throw new ApiRequestException("You must not define de id on the request", HttpStatus.BAD_REQUEST);
+                    
+                }else{
+                    System.out.println("No existe, se crea");
+                }
             }
+            return todoRepository.save(todo);
+        }catch(Exception e){
+            throw new ApiRequestException("DB exception", e);
         }
-        return todoRepository.save(todo);
+        
     }
     
     public TodoModel getTodobyId(int id) {
@@ -91,29 +96,35 @@ public class TodoService {
     }
 
     public TodoModel updateTodo(TodoModel todo) {
-        TodoModel todoToUpdate = null;
-        Optional<TodoModel> todoFound = todoRepository.findById(todo.getId());
-        if (todoFound.isPresent()){
-            todoToUpdate = todoFound.get();
-    
-            //Valid changes
-            todoState.setTodoModel(todoToUpdate);
-
-            TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
-            
-            //Change if is posible
-            if(curretStatus != null){
-                if(todoState.changeSimple(curretStatus)){
-                    todoRepository.save(todo);
-                }
-                else {
-                    throw new ApiRequestException("Change of status not valid", HttpStatus.BAD_REQUEST);
-                }
-            } 
-
-        }
+        try{
+            TodoModel todoToUpdate = null;
+            Optional<TodoModel> todoFound = todoRepository.findById(todo.getId());
+            if (todoFound.isPresent()){
+                todoToUpdate = todoFound.get();
         
-        return todoToUpdate;
+                //Valid changes
+                todoState.setTodoModel(todoToUpdate);
+
+                TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
+                
+                //Change if is posible
+                if(curretStatus != null){
+                    if(todoState.changeSimple(curretStatus)){
+                        todoRepository.save(todo);
+                    }
+                    else {
+                        throw new ApiRequestException("Change of status not valid", HttpStatus.BAD_REQUEST);
+                    }
+                } 
+
+            }
+            
+            return todoToUpdate;
+
+        }catch( Exception e)
+        {
+            throw new ApiRequestException("Error to conect DB", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         
 
         // // 1
@@ -146,10 +157,16 @@ public class TodoService {
     }
 
     public ResponseEntity<?> deleteTodoById(int id) {
-        TodoModel todoFound = todoRepository.getById(id);
-        if(todoFound != null){
-            todoRepository.delete(todoFound);
+       
+        try {
+            TodoModel todoFound = todoRepository.getById(id);
+            if (todoFound != null) {
+                todoRepository.delete(todoFound);
+            }
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error parsing date", e);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

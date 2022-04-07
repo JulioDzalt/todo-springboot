@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -59,5 +60,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = { RuntimeException.class, Exception.class })
+    protected ResponseEntity<Object> handleUnknow(
+      RuntimeException ex, WebRequest request) {
+          // String bodyOfResponse = "This should be application specific";
+          // return handleExceptionInternal(ex, bodyOfResponse, 
+          //   new HttpHeaders(), HttpStatus.CONFLICT, request);
 
+        ErrorResponse error = new ErrorResponse();
+        error.setMessage("Unknow ERROR");
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR );
+
+
+    }
+    
 }
