@@ -13,16 +13,16 @@ import com.example.todo_crud.models.TodoStatusE;
 import com.example.todo_crud.repositories.TodoRepository;
 import com.example.todo_crud.utils.TodoState;
 import com.example.todo_crud.utils.TodoStatesConfig;
+import com.example.todo_crud.exception.ApiRequestException;
 import com.example.todo_crud.models.TodoCategoriesE;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoService {
     
-    private static final Exception RuntimeException = null;
-
     @Autowired
     TodoState todoState;
 
@@ -48,10 +48,10 @@ public class TodoService {
         if(todo.getId() != 0 ){
             if (todoRepository.existsById(todo.getId())){
                 System.out.println("Ya existe");
-                return todoRepository.save(todo);
-            }else{
-                System.out.println("No existe se crea");
+                throw new ApiRequestException("You must not define de id on the request", HttpStatus.BAD_REQUEST);
                 
+            }else{
+                System.out.println("No existe, se crea");
             }
         }
         return todoRepository.save(todo);
