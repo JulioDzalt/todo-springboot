@@ -9,6 +9,7 @@ import com.example.todo_crud.models.TodoModel;
 import com.example.todo_crud.services.TodoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +51,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/todo/{id}")
-    public boolean deleteTodo(@Valid @PathVariable int id) {
+    public ResponseEntity<?> deleteTodo(@Valid @PathVariable int id) {
         return todoService.deleteTodoById(id);
     }
 }

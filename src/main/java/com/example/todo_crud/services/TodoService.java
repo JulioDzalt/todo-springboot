@@ -13,6 +13,7 @@ import com.example.todo_crud.exception.ApiRequestException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -55,10 +56,11 @@ public class TodoService {
     public TodoModel getTodobyId(int id) {
 
         Optional<TodoModel> todo = todoRepository.findById(id);
-        if (todo.isPresent())
+        if (todo.isPresent()){
             return todo.get();
+        }
         else{
-            return new TodoModel();
+            throw new ApiRequestException("Not found", HttpStatus.NOT_FOUND);
         }
         // TodoModel t = new TodoModel();
         // t.setId(1);
@@ -89,13 +91,13 @@ public class TodoService {
     }
 
     public TodoModel updateTodo(TodoModel todo) {
-        TodoModel todoNew = null;
+        TodoModel todoToUpdate = null;
         Optional<TodoModel> todoFound = todoRepository.findById(todo.getId());
         if (todoFound.isPresent()){
-            todoNew = todoFound.get();
+            todoToUpdate = todoFound.get();
     
             //Valid changes
-            todoState.setTodoModel(todoNew);
+            todoState.setTodoModel(todoToUpdate);
 
             TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
             
@@ -104,11 +106,14 @@ public class TodoService {
                 if(todoState.changeSimple(curretStatus)){
                     todoRepository.save(todo);
                 }
-            }
+                else {
+                    throw new ApiRequestException("Change of status not valid", HttpStatus.BAD_REQUEST);
+                }
+            } 
 
         }
         
-        return todoNew;
+        return todoToUpdate;
         
 
         // // 1
@@ -140,12 +145,11 @@ public class TodoService {
         // return todo;
     }
 
-    public boolean deleteTodoById(int id) {
+    public ResponseEntity<?> deleteTodoById(int id) {
         TodoModel todoFound = todoRepository.getById(id);
         if(todoFound != null){
             todoRepository.delete(todoFound);
-            return true;
         }
-        return false;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
