@@ -89,8 +89,10 @@ public class TodoState extends State {
         ArrayList<String> nextValidStatuses = todoStatesConfig.getValidChanges().get(previousState.toString());
 
         if (nextValidStatuses != null) {
-            if(nextValidStatuses.contains(newTodoState.toString()))
-            wasChanged = true;
+            if(nextValidStatuses.contains(newTodoState.toString())){
+                todo.setStatus(newTodoState.toString());
+                wasChanged = true;
+            }
         } else {
             wasChanged = false;
         }
