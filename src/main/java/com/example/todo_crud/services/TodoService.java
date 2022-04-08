@@ -121,8 +121,9 @@ public class TodoService {
             
             return todoToUpdate;
 
-        }catch( Exception e)
-        {
+        } catch (ApiRequestException e) {
+            throw e;
+        } catch( Exception e) {
             throw new ApiRequestException("Error to conect DB", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
