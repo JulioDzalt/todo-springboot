@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -231,6 +229,10 @@ class TodoCrudApplicationTests {
 
 		doNothing().when(todoState).setTodoModel(any(TodoModel.class));
 		when(todoState.changeSimple(any(TodoStatusE.class))).thenReturn(true);
+
+		//No se como hacer esto :( R Se hace con @Autowired, pero es mejor testear el puro POJO de todoState
+		// doCallRealMethod().when(todoState).setTodoModel(any(TodoModel.class));
+		// when(todoState.changeSimple(any(TodoStatusE.class))).thenCallRealMethod();
 		
 		// When
 		TodoModel todoUpdated = service.updateTodo(todoAfter);
