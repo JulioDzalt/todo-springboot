@@ -97,33 +97,40 @@ public class TodoService {
 
     public TodoModel updateTodo(TodoModel todo) {
         try{
-            TodoModel todoToUpdate = null;
-            Optional<TodoModel> todoFound = todoRepository.findById(todo.getId());
-            if (todoFound.isPresent()){
-                todoToUpdate = todoFound.get();
-        
-                //Valid changes
-                todoState.setTodoModel(todoToUpdate);
+            if (todo.getId() != 0 ){
 
-                TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
+                TodoModel todoToUpdate = null;
+                Optional<TodoModel> todoFound = todoRepository.findById(todo.getId());
                 
-                //Change if is posible
-                if(curretStatus != null){
-                    if(todoState.changeSimple(curretStatus)){
-                        todoRepository.save(todo);
-                    }
-                    else {
-                        throw new ApiRequestException("Change of status not valid", HttpStatus.BAD_REQUEST);
-                    }
-                } 
+                if (todoFound.isPresent()){
+                    todoToUpdate = todoFound.get();
+            
+                    //Valid changes
+                    todoState.setTodoModel(todoToUpdate);
 
+                    TodoStatusE curretStatus = TodoStatusE.valueOf(todo.getStatus());
+                    
+                    //Change if is posible
+                    if(curretStatus != null){
+                        if(todoState.changeSimple(curretStatus)){
+                            todoRepository.save(todo);
+                        }
+                        else {
+                            throw new ApiRequestException("Change of status not valid", HttpStatus.BAD_REQUEST);
+                        }
+                    } 
+
+                }
+                return todoToUpdate;
+            } else{
+                throw new ApiRequestException("You must especific the id", HttpStatus.BAD_REQUEST);
             }
             
-            return todoToUpdate;
 
         } catch (ApiRequestException e) {
             throw e;
         } catch( Exception e) {
+            System.out.println(e);
             throw new ApiRequestException("Error to conect DB", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         

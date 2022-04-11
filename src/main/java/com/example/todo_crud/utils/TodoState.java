@@ -86,15 +86,16 @@ public class TodoState extends State {
 
         boolean wasChanged = false;
         TodoStatusE previousState = TodoStatusE.valueOf(todo.getStatus());
-        ArrayList<String> nextValidStatuses = todoStatesConfig.getValidChanges().get(previousState.toString());
+        System.out.println(todoStatesConfig);
 
-        if (nextValidStatuses != null) {
-            if(nextValidStatuses.contains(newTodoState.toString())){
-                todo.setStatus(newTodoState.toString());
-                wasChanged = true;
+        if(todoStatesConfig.getValidChanges() != null){
+            ArrayList<String> nextValidStatuses = todoStatesConfig.getValidChanges().get(previousState.toString());
+            if (nextValidStatuses != null) {
+                if(nextValidStatuses.contains(newTodoState.toString())){
+                    todo.setStatus(newTodoState.toString());
+                    wasChanged = true;
+                }
             }
-        } else {
-            wasChanged = false;
         }
 
         if(wasChanged){
