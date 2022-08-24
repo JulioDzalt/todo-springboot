@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  todo_crud:
+    image: maven:3.8.4-jdk-11
+    working_dir: /usr/src/mymaven
+    ports:
+      - 8080:8080
+    volumes:
+      - C:\Users\105506781\Desktop\EjeccicioCrud\todo_crud:/usr/src/mymaven
+    environment:
+      MYSQL_HOST: bd_todos
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: todos
+    command: /bin/bash
+  bd_todos:
+    image: mysql:5.7.37
+    ports:
+      - 3306:3306
+    volumes:
+      - C:\Users\105506781\Desktop\EjeccicioCrud\todo_bd:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todos
+    command: /bin/bash
+

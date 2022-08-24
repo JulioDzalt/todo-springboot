@@ -26,20 +26,11 @@ todo:
         - IN_PROGRESS
         - DONE
         - CANCEL
-    validChanges:
-        TO_DO:
-            - IN_PROGRESS
-            - CANCEL
-        IN_PROGRESS:
-            - TO_DO
-            - DONE
-            - CANCEL
-        DONE:
-            - CANCEL
-        CANCEL:
+    validChanges: []
+        
 
 log4j:
     appender:
         stdout:
             layout:
-                ConversionPattern: "[%d{yyyy-MM-dd HH:mm:ss}] [ %-5p] [%c{1}:%L] %m%n"
+                ConversionPattern: "JULIO [%d{yyyy-MM-dd HH:mm:ss}] [ %-5p] [%c{1}:%L] %m%n"

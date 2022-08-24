@@ -66,4 +66,6 @@ FLUSH PRIVILEGES;
 
 # SonarQube
 
+docker run -p 9000:9000 -ti sonarqube:9.4.0-community
+
 mvn clean verify sonar:sonar -Dsonar.projectKey=Julio -Dsonar.host.url=http://172.17.0.2:9000 -Dsonar.login=5b1448a93eacd09d2e88ae047e08a8cc0be312d2 -Dsonar.coverage.jacoco.xmlReportPaths=tests/target/site/jacoco-aggregate/jacoco.xml,../tests/target/site/jacoco-aggregate/jacoco.xml
